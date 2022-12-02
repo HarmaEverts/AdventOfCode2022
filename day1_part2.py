@@ -1,8 +1,6 @@
-import os
-
 elves_inventory = []
 
-with open("inputday1.txt", 'r') as f:
+with open("day1_input.txt", 'r') as f:
     lines = f.read().splitlines()
     temp_calories = 0
     for line in lines:
