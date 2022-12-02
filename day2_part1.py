@@ -1,4 +1,3 @@
-
 """
 --- Day 2: Rock Paper Scissors ---
 
@@ -28,15 +27,16 @@ In this example, if you were to follow the strategy guide, you would get a total
 
 What would your total score be if everything goes exactly according to your strategy guide?
 """
-duel_outcomes = { 'A X': 4,
-                  'B X': 1,
-                  'C X': 7,
-                  'A Y': 8,
-                  'B Y': 5,
-                  'C Y': 2,
-                  'A Z': 3,
-                  'B Z': 9,
-                  'C Z': 6}
+
+duel_outcomes = {'A X': 4,  # Draw + Rock
+                 'B X': 1,  # Loss + Rock
+                 'C X': 7,  # Win + Rock
+                 'A Y': 8,  # Win + Paper
+                 'B Y': 5,  # Draw + Paper
+                 'C Y': 2,  # Loss + Paper
+                 'A Z': 3,  # Loss + Scissors
+                 'B Z': 9,  # Win + Scissors
+                 'C Z': 6}  # Draw + Scissors
 my_score = 0
 
 # Open the strategy guide
