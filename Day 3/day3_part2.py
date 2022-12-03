@@ -11,12 +11,9 @@ def convert_item_to_score(char):
 with open("day3_input.txt", 'r') as f:
     rucksacks = f.read().splitlines()  # Each rucksack becomes a list element
     elf_group = []
-    start = 0
-    end = len(rucksacks)
-    step = 3
     # Find each group of 3 elves, find their badge, and convert that item to a score
-    for i in range(start, end, step):
-        elf_group = rucksacks[i:i + step]
+    for i in range(0, len(rucksacks), 3):
+        elf_group = rucksacks[i:i + 3]
         badge = set(rucksacks[i]).intersection(rucksacks[i+1]).intersection(rucksacks[i+2]).pop()
         badge_priorities_score += convert_item_to_score(badge)
 
