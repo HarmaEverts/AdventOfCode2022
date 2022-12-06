@@ -31,10 +31,11 @@ def convert_input(stack_information):
 def execute(move, my_stacks):
     source_stack = int(move[3])-1
     target_stack = int(move[5])-1
+    intermediate_stack = []
     for i in range(int(move[1])):
         box = my_stacks[source_stack].pop()
-        my_stacks[target_stack].append(box)
-        print("Moved " + box + " from stack " + str(source_stack) + " to stack " + str(target_stack))
+        intermediate_stack.append(box)
+    my_stacks[target_stack].extend(reversed(intermediate_stack))
     return my_stacks
 
 
