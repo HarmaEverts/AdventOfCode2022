@@ -18,23 +18,11 @@ class Knot:
     def set_x_coord(self, x):
         self._x_coord = x
 
-    def update_x_coord(self, direction, distance):
-        if direction == 'L':
-            self.set_x_coord(self.get_x_coord()-distance)
-        else:  # R
-            self.set_x_coord(self.get_x_coord()+distance)
-
     def get_y_coord(self):
         return self._y_coord
 
     def set_y_coord(self, y):
         self._y_coord = y
-
-    def update_y_coord(self, direction, distance):
-        if direction == 'U':
-            self.set_y_coord(self.get_y_coord()+distance)
-        else:  # D
-            self.set_y_coord(self.get_y_coord()-distance)
 
     def move_right(self):
         self._x_coord += 1
@@ -64,12 +52,6 @@ class Rope:
     def __init__(self):
         self._Head = Knot()
         self._Tail = Knot()
-
-    def delta_knots(self, lead, follower):
-        delta_x = lead.get_x_coord() - follower.get_x_coord()
-        delta_y = lead.get_y_coord() - follower.get_y_coord()
-        delta = (delta_x, delta_y)
-        return delta
 
     def get_head_coords(self):
         return self._Head.get_coords()
@@ -105,51 +87,35 @@ class Rope:
 
     def drag_tail(self, direction):
         if not self.is_tail_adjacent_to_head():
-            print('\t\tThe tail is not adjacent to the head')
-            (head_x, head_y) = self.get_head_coords()
-            (tail_x, tail_y) = self.get_tail_coords()
-            delta_x, delta_y = self.delta_knots(self.get_head(), self.get_tail())
             if direction == 'U' or direction == 'D':
                 # Vertical move, pull to x value
                 self.get_tail().set_x_coord(self.get_head().get_x_coord())
-                print('\t\tMoved the tail to the head\'s column')
                 # Now move y value to adjacent tile in the set direction
                 if direction == 'U':
                     self.get_tail().set_y_coord(self.get_head().get_y_coord() - 1)
-                    print('\t\tMoved tail up towards the head')
                 else:
                     self.get_tail().set_y_coord(self.get_head().get_y_coord() + 1)
-                    print('\t\tMoved tail down towards the head')
             else:
                 # Horizontal move, pull to y value
                 self.get_tail().set_y_coord(self.get_head().get_y_coord())
-                print('\t\tMoved the tail to the head\'s row')
                 # Now move x value to adjacent tile in the set direction
                 if direction == 'L':
                     self.get_tail().set_x_coord(self.get_head().get_x_coord() + 1)
-                    print('\t\tMoved tail left towards the head')
                 else:
                     self.get_tail().set_x_coord(self.get_head().get_x_coord() - 1)
-                    print('\t\tMoved tail right towards the head')
 
     def move_rope(self, current_command):
         direction, distance = current_command.split()
         # Move Head, then Tail
         for move in range(int(distance)):
-            print('Before move: ')
-            print('\tHead: ' + str(self.get_head_coords()))
-            print('\tTail: ' + str(self.get_tail_coords()))
             if direction == 'U':  # y++
                 self.get_head().move_up()
-                print("\tMoved head 1 up")
                 self.drag_tail(direction)
             elif direction == 'D':  # y--
                 self.get_head().move_down()
-                print("\tMoved head 1 down")
                 self.drag_tail(direction)
             elif direction == 'L':  # x--:
                 self.get_head().move_left()
-                print("\tMoved head 1 left")
                 self.drag_tail(direction)
             else:  # R x++
                 self.get_head().move_right()
