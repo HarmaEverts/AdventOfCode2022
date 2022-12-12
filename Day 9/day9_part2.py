@@ -166,6 +166,7 @@ class Rope:
                     self.drag_tail(leader, follower)
             self._knots[self._length-1].add_unique_knot_location()
 
+
 with open('day9_input.txt', 'r') as f:
     my_rope = Rope(10)
     commands = f.read().splitlines()
